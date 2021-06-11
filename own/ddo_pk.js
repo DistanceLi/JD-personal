@@ -1,7 +1,7 @@
 /*
 京享值PK
 cron 15 0,6,13,19,21 * * * ddo_pk.js
-更新时间：2021-6-4
+更新时间：2021-6-11
 活动入口：京东APP-我的-京享值
 已支持IOS双京东账号,Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
@@ -204,13 +204,10 @@ function getPinList(pin) {
 					});
 
 					let list=temp.split(',');
-
 					list.pop()
 					console.log(list)
-					//data.sort(function(a, b){return a.winNum - b.winNum});
 					$.pinList = list
 
-					//console.log(pinList)
 				}else{
 					console.log(res)
 					console.log("获取好友列表失败，京东问题，多运行几次")
