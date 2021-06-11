@@ -102,7 +102,7 @@ async function main() {
 		if ($.pin) {
 			console.log("当前pin（pk码）：" + $.pin);
 		}
-		await getPinList(30); // 获取的pin列表
+		await getPinList($.pin); // 获取的pin列表
 		let myScore=await getScore($.pin);
 		//await submitPKCode($.pin)
 		console.log("我的京享值:"+myScore);
@@ -174,21 +174,24 @@ function getPinList(pin) {
 	console.log("获取Pk列表");
 	return new Promise((resolve) => {
 		let options = {
-			"url": `https://pengyougou.m.jd.com/like/jxz/getUserFriends?actId=8&appId=dafbe42d5bff9d82298e5230eb8c3f79&lkEPin=${pin}`,
+			"url": "https://pengyougou.m.jd.com/like/jxz/getUserFriends?actId=8&appId=dafbe42d5bff9d82298e5230eb8c3f79&lkEPin="+pin,
 			"headers": {
+				"Host": "pengyougou.m.jd.com",
 				"Content-Type": "application/json",
 				"Origin": "https://game-cdn.moxigame.cn",
 				"Connection": "keep-alive",
 				"Accept": " */*",
 				"User-Agent": "jdapp;iPhone;10.0.0;14.2.1;1f1a5edd5846dcb3a8d230c4087ac2693eef0cf7;network/wifi;ADID/2316F23B-D3CE-4972-BA78-2388CE8E7268;JDEbook/openapp.jdreader;model/iPhone13,2;addressid/137831468;appBuild/167675;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_2_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
 				"Accept-Language": "zh-cn",
+				"Accept-Encoding": "gzip, deflate, br"
 			}
 		}
 
 		$.get(options, (err, resp, res) => {
 			try {
 				if (res) {
-					//console.log(res)
+					console.log(res)
+					console.log("https://pengyougou.m.jd.com/like/jxz/getUserFriends?actId=8&appId=dafbe42d5bff9d82298e5230eb8c3f79&lkEPin="+pin)
 
 					//console.log(res)
 					let temp = ""
@@ -221,7 +224,7 @@ function getPinList(pin) {
 				}
 				}
 			} catch (e) {
-				//console.log(e);
+				console.log(e);
 				console.log("获取好友列表失败，京东问题，多运行几次")
 				console.log("获取好友列表失败，京东问题，多运行几次")
 				console.log("获取好友列表失败，京东问题，多运行几次")
@@ -236,7 +239,49 @@ function getPinList(pin) {
 		})
 	});
 }
+function launchBattle(fpin) {
+	console.log("发起挑战");
+	return new Promise((resolve) => {
+		let options = {
+			"url": `https://jd.moxigame.cn/likejxz/launchBattle?actId=8&appId=dafbe42d5bff9d82298e5230eb8c3f79&lkEPin=${$.pin}&recipient=${fpin}&relation=1`,
+			"headers": {
+				"Host": "jd.moxigame.cn",
+				"Content-Type": "application/json",
+				"Origin": "https://game-cdn.moxigame.cn",
+				"Connection": "keep-alive",
+				"Accept": " */*",
+				"User-Agent": "",
+				"Accept-Language": "zh-cn",
+			}
+		}
 
+
+		$.get(options, (err, resp, res) => {
+			try {
+				if (res) {
+					let data = $.toObj(res);
+					console.log(data);
+					if (data) {
+						data = data.data;
+						if (data.msg) {
+							console.log(data.msg);
+							if (data.msg == "今日次数已耗尽") {
+								bcomplate = true;
+							}
+						} else {
+							console.log($.toStr(data));
+						}
+					}
+
+				}
+			} catch (e) {
+				console.log(e);
+			} finally {
+				resolve(res);
+			}
+		})
+	});
+}
 function getScore(fpin){
     console.log("查询"+fpin+"分数");
 	return new Promise((resolve) => {
