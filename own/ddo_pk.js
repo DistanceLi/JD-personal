@@ -189,8 +189,11 @@ function getPinList(pin) {
 			try {
 				if (res) {
 					//console.log(res)
-					let temp = "2b"
+
+					//console.log(res)
+					let temp = ""
 					let data = $.toObj(res);
+					if(data.datas){
 					data=data.datas
 					//console.log(data.datas)
 					data.forEach(element => {
@@ -205,9 +208,20 @@ function getPinList(pin) {
 					$.pinList = list
 
 					//console.log(pinList)
+				}else{
+					console.log(res)
+					console.log("获取好友列表失败，京东问题，多运行几次")
+					console.log("获取好友列表失败，京东问题，多运行几次")
+					console.log("获取好友列表失败，京东问题，多运行几次")
+					console.log("获取好友列表失败，京东问题，多运行几次")
+					console.log("获取好友列表失败，京东问题，多运行几次")
+					console.log("获取好友列表失败，京东问题，多运行几次")
+					console.log("获取好友列表失败，京东问题，多运行几次")
+					console.log("获取好友列表失败，京东问题，多运行几次")
+				}
 				}
 			} catch (e) {
-				console.log(e);
+				//console.log(e);
 				console.log("获取好友列表失败，京东问题，多运行几次")
 				console.log("获取好友列表失败，京东问题，多运行几次")
 				console.log("获取好友列表失败，京东问题，多运行几次")
@@ -216,51 +230,6 @@ function getPinList(pin) {
 				console.log("获取好友列表失败，京东问题，多运行几次")
 				console.log("获取好友列表失败，京东问题，多运行几次")
 				console.log("获取好友列表失败，京东问题，多运行几次")
-			} finally {
-				resolve(res);
-			}
-		})
-	});
-}
-
-
-function launchBattle(fpin) {
-	console.log("发起挑战");
-	return new Promise((resolve) => {
-		let options = {
-			"url": `https://jd.moxigame.cn/likejxz/launchBattle?actId=8&appId=dafbe42d5bff9d82298e5230eb8c3f79&lkEPin=${$.pin}&recipient=${fpin}&relation=1`,
-			"headers": {
-				"Host": "jd.moxigame.cn",
-				"Content-Type": "application/json",
-				"Origin": "https://game-cdn.moxigame.cn",
-				"Connection": "keep-alive",
-				"Accept": " */*",
-				"User-Agent": "",
-				"Accept-Language": "zh-cn",
-			}
-		}
-
-
-		$.get(options, (err, resp, res) => {
-			try {
-				if (res) {
-					let data = $.toObj(res);
-					console.log(data);
-					if (data) {
-						data=data.data;
-						if(data.msg){
-						    console.log(data.msg);
-							if(data.msg =="今日次数已耗尽"){
-							bcomplate=true;
-							}
-						}else{
-						     console.log($.toStr(data));
-						}
-					}
-
-				}
-			} catch (e) {
-				console.log(e);
 			} finally {
 				resolve(res);
 			}
