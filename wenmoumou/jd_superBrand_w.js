@@ -83,9 +83,11 @@ const JD_API_HOST = `https://api.m.jd.com/client.action`;
                 $.actname = actdata.actname
                 if($.actid&&$.enpid){
                 await getCode("secondfloor", $.actid)
+
+                    
                 await doTask("secondfloor", $.enpid, $.taskList[0].encryptAssignmentId, $.taskList[0].ext.followShop[0].itemId, $.taskList[0].assignmentType)
                 await $.wait(500);
-                await doTask("secondfloor", $.enpid, $.taskList[2].encryptAssignmentId, $.taskList[2].ext.brandMemberList[0].itemId, $.taskList[2].assignmentType)
+                //await doTask("secondfloor", $.enpid, $.taskList[2].encryptAssignmentId, $.taskList[2].ext.brandMemberList[0].itemId, $.taskList[2].assignmentType)
                 await $.wait(500);
                } 
                 await superBrandTaskLottery()
@@ -185,11 +187,12 @@ function getCode(source, actid) {
                     console.log(`${$.name} API请求失败，请检查网路重试`);
                 } else {
                     data = JSON.parse(data);
+                    
                     //       console.log(data.data.result)
                     if (data && data.data && data.code === "0" && source === "secondfloor") {
-                        if (data.data.result && data.data.result.taskList && data.data.result.taskList[3]) {
+                        if (data.data.result && data.data.result.taskList && data.data.result.taskList[2]) {
                             $.taskList = data.data.result.taskList
-                            let result = data.data.result.taskList[3]
+                            let result = data.data.result.taskList[2]
                             let encryptAssignmentId = result.encryptAssignmentId
                             let itemid = result.ext.assistTaskDetail.itemId
                             $.inviteenaid = result.encryptAssignmentId
