@@ -104,7 +104,7 @@ async function main() {
 		}
 		await getPinList(30); // 获取的pin列表
 		let myScore=await getScore($.pin);
-		await submitPKCode($.pin)
+		//await submitPKCode($.pin)
 		console.log("我的京享值:"+myScore);
 		if($.pinList){
 			console.log($.pinList)
@@ -170,17 +170,17 @@ function submitPKCode (pin) {
 		})
 	})
 }
-
-function getPinList(num = 20){
+function getPinList(pin) {
 	console.log("获取Pk列表");
 	return new Promise((resolve) => {
 		let options = {
-			"url": `https://pool.nz.lu/api/v2/get?name=PK&count=${num}`,
+			"url": `https://pengyougou.m.jd.com/like/jxz/getUserFriends?actId=8&appId=dafbe42d5bff9d82298e5230eb8c3f79&lkEPin=${pin}`,
 			"headers": {
-				"Host": "pool.nz.lu",
+				"Content-Type": "application/json",
+				"Origin": "https://game-cdn.moxigame.cn",
 				"Connection": "keep-alive",
 				"Accept": " */*",
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4433.0 Safari/537.36",
+				"User-Agent": "jdapp;iPhone;10.0.0;14.2.1;1f1a5edd5846dcb3a8d230c4087ac2693eef0cf7;network/wifi;ADID/2316F23B-D3CE-4972-BA78-2388CE8E7268;JDEbook/openapp.jdreader;model/iPhone13,2;addressid/137831468;appBuild/167675;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_2_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
 				"Accept-Language": "zh-cn",
 			}
 		}
@@ -188,11 +188,34 @@ function getPinList(num = 20){
 		$.get(options, (err, resp, res) => {
 			try {
 				if (res) {
+					//console.log(res)
+					let temp = "2b"
 					let data = $.toObj(res);
-					$.pinList = data.data.split(',');
+					data=data.datas
+					//console.log(data.datas)
+					data.forEach(element => {
+						temp =temp+ element.friendPin+','
+					});
+
+					let list=temp.split(',');
+
+					list.pop()
+					console.log(list)
+					//data.sort(function(a, b){return a.winNum - b.winNum});
+					$.pinList = list
+
+					//console.log(pinList)
 				}
 			} catch (e) {
 				console.log(e);
+				console.log("获取好友列表失败，京东问题，多运行几次")
+				console.log("获取好友列表失败，京东问题，多运行几次")
+				console.log("获取好友列表失败，京东问题，多运行几次")
+				console.log("获取好友列表失败，京东问题，多运行几次")
+				console.log("获取好友列表失败，京东问题，多运行几次")
+				console.log("获取好友列表失败，京东问题，多运行几次")
+				console.log("获取好友列表失败，京东问题，多运行几次")
+				console.log("获取好友列表失败，京东问题，多运行几次")
 			} finally {
 				resolve(res);
 			}
