@@ -249,7 +249,7 @@ function launchBattle(fpin) {
 					let data = $.toObj(res);
 					console.log(data);
 					if (data) {
-						if (data.data.fromScore >data.data.toScore ) { console.log("挑战成功"); } else { console.log("挑战失败"); }
+						 console.log("挑战成功");
 						data = data.data;
 						if (data.msg) {
 							console.log(data.msg);
