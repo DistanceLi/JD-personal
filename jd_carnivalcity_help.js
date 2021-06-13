@@ -92,7 +92,7 @@ let nowTime = new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*
       await JD818();
     }
   }
-  for (let i = 0; i < cookiesArr.length; i++) {
+  for (let i = 0; i < cookiesArr.length; i++) { 
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
       $.canHelp = true;//能否助力
