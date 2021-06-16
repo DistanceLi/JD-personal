@@ -210,7 +210,7 @@ if ($.isNode()) {
         $.pkInviteList.push(...$.innerPkInviteList);
     }
     for (let i = 0; i < cookiesArr.length; i++) {
-        $.cookie = cookiesArr[i];
+        $.cookie = cookiesArr[i]+ `joyytoken=50084MDFJb0lXQzAxMQ==.eFl7ZHt7V39md3BceylzHi4eHRtxW30HPXhDf3t3ZV43ZT14ETkOBSFALWISIAV6Yic5InBiDXAuJjAkdFI3.66c2abd5;`
         $.canHelp = true;
         $.UserName = decodeURIComponent($.cookie.match(/pt_pin=([^; ]+)(?=;?)/) && $.cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1]);
         if (!$.secretpInfo[$.UserName]) {

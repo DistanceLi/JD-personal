@@ -59,7 +59,7 @@ const JD_API_HOST = `https://api.m.jd.com/client.action`;
     }
     console.log(`\n小功能::仅仅是收集一下618动物联萌领金币每秒产生的金币,建议30分钟执行一次脚本\n`)
     for (let i = 0; i < cookiesArr.length; i++) {
-        cookie = cookiesArr[i];
+        cookie = cookiesArr[i]+ `joyytoken=50084MDFJb0lXQzAxMQ==.eFl7ZHt7V39md3BceylzHi4eHRtxW30HPXhDf3t3ZV43ZT14ETkOBSFALWISIAV6Yic5InBiDXAuJjAkdFI3.66c2abd5;`
         if (cookie) {
             $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
             $.index = i + 1;
